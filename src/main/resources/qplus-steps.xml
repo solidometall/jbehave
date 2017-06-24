@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <bean id="driverProvider" class="org.jbehave.web.selenium.PropertyWebDriverProvider"/>
+
+  <bean id="webDriverProvider" class="org.jbehave.web.selenium.PerStoriesWebDriverSteps">
+    <constructor-arg ref="driverProvider"/>
+  </bean>
+
+  <bean id="storyReporterBuilder" class="org.jbehave.core.reporters.StoryReporterBuilder"/>
+
+  <bean id="webDriverScreenshotOnFailure" class="org.jbehave.web.selenium.WebDriverScreenshotOnFailure">
+    <constructor-arg ref="driverProvider"/>
+    <constructor-arg ref="storyReporterBuilder"/>
+  </bean>
+
+  <bean id="pageFactory" class="com.esolutions.jbehave.pages.PageFactory">
+     <constructor-arg ref="driverProvider"/>
+  </bean>
+
+  <bean id="touchQPlusSteps" class="com.esolutions.jbehave.steps.TouchQPlusSteps">
+    <constructor-arg ref="pageFactory"/>
+  </bean>
+
+</beans>
